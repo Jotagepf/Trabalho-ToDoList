@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Lembrete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(187, 14, 14, 0.116);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            /* Permite que o contêiner de fundo seja posicionado corretamente */
+        }
+
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            /* Cor de fundo do contêiner */
+            opacity: 0.5;
+            /* Opacidade para um visual mais sutil */
+            z-index: -1;
+            /* Coloca o contêiner de fundo atrás dos elementos */
+            border-radius: 20px;
+            /* Adiciona bordas arredondadas */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 4px solid #b90b0bcb;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .done {
+            text-decoration: line-through;
+        }
+
+        .delete-button,
+        .done-button {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .done-mark {
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            transform: translateY(-50%);
+            background-color: #6d7aee;
+            color: #fff;
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        #lembreteInput {
+            width: 60%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #b90b0bcb;
+            border-radius: 30px;
+        }
+
+        #logo {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        #adicionarButton {
+            padding: 12px 20px;
+            background-color: #cf0000;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #adicionarButton:hover {
+            background-color: #610000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="background-container"></div>
+        <h1>
+            <img id="logo" src="pin1.png" alt="" width="30" height="30">
+            Meus Lembretes
+        </h1>
+        <input type="text" id="lembreteInput" placeholder="Digite seu lembrete">
+        <button id="adicionarButton" onclick="adicionarLembrete()">Novo Lembrete</button>
+        <ul id="listaLembretes"></ul>
+    </div>
+
+    <script>
+        const listaLembretes = document.getElementById('listaLembretes');
+
+        function adicionarLembrete() {
+            const lembreteInput = document.getElementById('lembreteInput');
+            const lembreteText = lembreteInput.value;
+            if (lembreteText === '') {
+                alert('Por favor, insira um lembrete!');
+                return;
+            }
+            const li = document.createElement('li');
+            li.textContent = lembreteText;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Excluir';
+            deleteButton.className = 'delete-button';
+            deleteButton.addEventListener('click', () => {
+                li.remove();
+            });
+
+            const doneButton = document.createElement('button');
+            doneButton.textContent = 'Feito';
+            doneButton.className = 'done-button';
+            doneButton.addEventListener('click', () => {
+                li.classList.toggle('done');
+                const doneMark = document.createElement('span');
+                doneMark.textContent = '✔';
+                doneMark.className = 'done-mark';
+                if (li.classList.contains('done')) {
+                    li.appendChild(doneMark);
+                } else {
+                    const existingDoneMark = li.querySelector('.done-mark');
+                    if (existingDoneMark) {
+                        existingDoneMark.remove();
+                    }
+                }
+            });
+
+            li.appendChild(doneButton);
+            li.appendChild(deleteButton);
+
+            listaLembretes.appendChild(li);
+            lembreteInput.value = '';
+        }
+    </script>
+</body>
+
+</html>

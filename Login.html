@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #aeafee67;
+        }
+
+        .container {
+            max-width: 300px;
+            margin: 50px auto;
+            width: 500px;
+            height: 400px;
+            padding: 20px;
+            background-color: #6d7aee4b;
+            border-radius: 35px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0px;
+            left: 45px;
+        }
+
+        .welcome-text {
+            position: fixed;
+            right: 360px;
+            margin-top: 100px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-text h2 {
+            margin: 0;
+            font-size: 40px;
+            font-weight: bold;
+            font-family: "Times New Roman";
+            color: rgb(46, 26, 83)
+        }
+
+        .welcome-icon {
+            position: absolute;
+            top: 190px;
+            right: 0px;
+            left: 800px;
+            width: 200px;
+            height: auto;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #a36ada;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #530d8b;
+        }
+
+        #welcomeMessage {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #dff0d8;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body">
+        <div class="welcome-text">
+            <h2>Bem-vindo ao Checklist</h2>
+        </div>
+        <div class="container">
+            <h1>Login</h1>
+            <form id="loginForm" action="Lembrete.html" method="get">
+                <input type="text" id="name" name="name" placeholder="Nome" required>
+                <input type="email" id="email" name="email" placeholder="E-mail" required>
+                <input type="submit" value="Login">
+            </form>
+            <img src="listaa.png" alt="Ícone de boas-vindas" class="welcome-icon">
+        </div>
+        <div id="welcomeMessage"></div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (name === '' || email === '') {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+
+            const redirectURL = loginForm.getAttribute('action') + `?name=${name}&email=${email}`;
+
+
+            window.location.href = redirectURL;
+        });
+    </script>
+</body>
+
+</html>
